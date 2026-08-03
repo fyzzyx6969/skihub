@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKIHUB.PL︲STRONA GŁÓWNA</title>
+    <!-- Favicon z Twojego logo -->
+    <link rel="icon" type="image/png" href="ilustracja_skihub.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background-color: #0b0b0e;
+            color: #ffffff;
+        }
+
+        /* Ekran ładowania (preloader) */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0b0b0e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        /* Kontener elementów ładowania */
+        .loader-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 300px;
+        }
+
+        /* Logo podczas ładowania z efektem pulsowania */
+        .loader-logo {
+            max-width: 160px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 25px;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        /* Pasek postępu */
+        .progress-track {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #5353ec;
+            border-radius: 10px;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 15px rgba(83, 83, 236, 0.7);
+        }
+
+        /* Procenty ładowania */
+        .loading-percent {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #5353ec;
+            text-shadow: 0 0 8px rgba(83, 83, 236, 0.4);
+        }
+
+        /* Główna zawartość strony (początkowo ukryta) */
+        .main-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease 0.2s;
+        }
+
+        .main-wrapper.loaded {
+            opacity: 1;
+        }
+
+        /* Tło z rozmytym logo */
+        .background-blur {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background-image: url('ilustracja_skihub.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(25px) brightness(0.25);
+            transform: scale(1.1);
+            z-index: 1;
+        }
+
+        /* Wakacyjne cząsteczki w tle (Canvas) */
+        #summerCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Główna zawartość wycentrowana */
+        .content-container {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Styl głównego logo na stronie */
+        .logo {
+            max-width: 250px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+        }
+
+        /* Napisy */
+        .status-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .sub-text {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            max-width: 440px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Licznik czasu (Countdown) w kolorze #5353ec */
+        .countdown-container {
+            display: flex;
+            gap: 15px;
+            background: rgba(15, 15, 20, 0.6);
+            border: 1px solid rgba(83, 83, 236, 0.3);
+            padding: 15px 25px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(83, 83, 236, 0.15);
+            margin-bottom: 25px;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 55px;
+        }
+
+        .countdown-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #5353ec;
+            text-shadow: 0 0 12px rgba(83, 83, 236, 0.6);
+        }
+
+        .countdown-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #5353ec;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+
+        .countdown-separator {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #5353ec;
+            opacity: 0.6;
+            display: flex;
+            align-items: center;
+            padding-bottom: 12px;
+            text-shadow: 0 0 8px rgba(83, 83, 236, 0.4);
+        }
+
+        /* Przycisk Discord */
+        .discord-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #5353ec;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(83, 83, 236, 0.4);
+        }
+
+        .discord-btn:hover {
+            background-color: #6464f1;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(83, 83, 236, 0.6);
+        }
+
+        .discord-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Animacje */
+        @keyframes pulseGlow {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 10px rgba(83, 83, 236, 0.3));
+            }
+            50% {
+                transform: scale(1.04);
+                filter: drop-shadow(0 0 25px rgba(83, 83, 236, 0.7));
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Klasa ukrywająca preloader */
+        .preloader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ekran ładowania -->
+    <div id="preloader">
+        <div class="loader-box">
+            <img src="ilustracja_skihub.png" alt="Logo Preloader" class="loader-logo">
+            <div class="progress-track">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="loading-percent" id="loadingPercent">0%</div>
+        </div>
+    </div>
+
+    <!-- Główna zawartość strony -->
+    <div class="main-wrapper" id="mainWrapper">
+        <div class="background-blur"></div>
+        <!-- Wakacyjny efekt cząsteczek -->
+        <canvas id="summerCanvas"></canvas>
+        
+        <div class="content-container">
+            <img src="ilustracja_skihub.png" alt="Logo Serwera" class="logo">
+            <div class="status-text">Strona w budowie</div>
+            <!-- Zaktualizowany napis (Opcja 4) -->
+            <div class="sub-text">Słońce, znajomi i nowa przygoda. Tworzymy dla Was idealne miejsce na letnie wieczory. Zostało niewiele czasu!</div>
+            
+            <!-- Licznik czasu -->
+            <div class="countdown-container" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Godzin</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Minut</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Sekund</span>
+                </div>
+            </div>
+
+            <!-- Przycisk Discord -->
+            <a href="https://discord.gg/xyEN4g4Ave" target="_blank" class="discord-btn">
+                <svg viewBox="0 0 127.14 96.36">
+                    <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.15c2.65-27.28-4.52-51.1-20.45-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5.18-12.72,11.45-12.72S53.9,46,53.88,53,48.71,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5.18-12.72,11.44-12.72S96.15,46,96.13,53,91,65.69,84.69,65.69Z"/>
+                </svg>
+                Dołącz do Discorda
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Pasek ładowania
+        const progressBar = document.getElementById('progressBar');
+        const loadingPercent = document.getElementById('loadingPercent');
+        const preloader = document.getElementById('preloader');
+        const mainWrapper = document.getElementById('mainWrapper');
+
+        let currentProgress = 0;
+
+        const loadInterval = setInterval(() => {
+            currentProgress += Math.floor(Math.random() * 8) + 3;
+            
+            if (currentProgress >= 100) {
+                currentProgress = 100;
+                clearInterval(loadInterval);
+                
+                setTimeout(() => {
+                    preloader.classList.add('preloader-hidden');
+                    mainWrapper.classList.add('loaded');
+                }, 300);
+            }
+
+            progressBar.style.width = currentProgress + '%';
+            loadingPercent.textContent = currentProgress + '%';
+        }, 40);
+
+        // Licznik do jutra do 20:00
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 1);
+        targetDate.setHours(20, 0, 0, 0);
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "<div style='color: #5353ec; font-weight: bold; font-size: 1.1rem; letter-spacing: 1px; text-shadow: 0 0 10px rgba(83,83,236,0.6);'>STARTUJEMY!</div>";
+                return;
+            }
+
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+            document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Wakacyjny efekt cząsteczek w tle (Canvas)
+        const canvas = document.getElementById('summerCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const particlesArray = [];
+        const numberOfParticles = 35;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.6;
+                this.speedY = (Math.random() - 0.5) * 0.6 - 0.2;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.y < 0) {
+                    this.y = canvas.height + 10;
+                    this.x = Math.random() * canvas.width;
+                }
+                if (this.x < 0 || this.x > canvas.width) {
+                    this.speedX = -this.speedX;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(83, 83, 236, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < numberOfParticles; i++) {
+            particlesArray.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+    </script>
+
+</body>
+</html>
