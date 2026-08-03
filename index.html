@@ -4,8 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SKIHUB.PL︲STRONA GŁÓWNA</title>
+    
+    <!-- Metatagi OpenGraph (Wygląd linku na Discordzie) -->
+    <meta property="og:title" content="SKIHUB.PL 🫱 SEZON LETNI 🌴">
+    <meta property="og:description" content="Słońce, znajomi i nowa przygoda! Dołącz do społeczności SKIHUB.PL, sprawdź licznik do startu i zgarnij ekipę na letnie granie!">
+    <meta property="og:image" content="ilustracja_skihub.png">
+    <meta property="og:url" content="https://skihub.pl">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#5353ec">
+
     <!-- Favicon z Twojego logo -->
     <link rel="icon" type="image/png" href="ilustracja_skihub.png">
+    
     <style>
         * {
             margin: 0;
@@ -38,7 +48,6 @@
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        /* Kontener elementów ładowania */
         .loader-box {
             display: flex;
             flex-direction: column;
@@ -46,7 +55,6 @@
             width: 300px;
         }
 
-        /* Logo podczas ładowania z efektem pulsowania */
         .loader-logo {
             max-width: 160px;
             width: 100%;
@@ -55,7 +63,6 @@
             animation: pulseGlow 2s infinite ease-in-out;
         }
 
-        /* Pasek postępu */
         .progress-track {
             width: 100%;
             height: 6px;
@@ -75,7 +82,6 @@
             box-shadow: 0 0 15px rgba(83, 83, 236, 0.7);
         }
 
-        /* Procenty ładowania */
         .loading-percent {
             margin-top: 12px;
             font-size: 0.9rem;
@@ -85,7 +91,6 @@
             text-shadow: 0 0 8px rgba(83, 83, 236, 0.4);
         }
 
-        /* Główna zawartość strony (początkowo ukryta) */
         .main-wrapper {
             position: relative;
             width: 100%;
@@ -98,7 +103,6 @@
             opacity: 1;
         }
 
-        /* Tło z rozmytym logo */
         .background-blur {
             position: absolute;
             top: -10%;
@@ -113,7 +117,6 @@
             z-index: 1;
         }
 
-        /* Wakacyjne cząsteczki w tle (Canvas) */
         #summerCanvas {
             position: absolute;
             top: 0;
@@ -124,7 +127,6 @@
             pointer-events: none;
         }
 
-        /* Główna zawartość wycentrowana */
         .content-container {
             position: relative;
             z-index: 3;
@@ -138,7 +140,6 @@
             padding: 20px;
         }
 
-        /* Styl głównego logo na stronie */
         .logo {
             max-width: 250px;
             width: 100%;
@@ -148,7 +149,6 @@
             filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
         }
 
-        /* Napisy */
         .status-text {
             font-size: 1.5rem;
             font-weight: 700;
@@ -168,7 +168,6 @@
             text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
         }
 
-        /* Licznik czasu (Countdown) w kolorze #5353ec */
         .countdown-container {
             display: flex;
             gap: 15px;
@@ -215,7 +214,6 @@
             text-shadow: 0 0 8px rgba(83, 83, 236, 0.4);
         }
 
-        /* Przycisk Discord */
         .discord-btn {
             display: inline-flex;
             align-items: center;
@@ -244,7 +242,6 @@
             fill: currentColor;
         }
 
-        /* Animacje */
         @keyframes pulseGlow {
             0%, 100% {
                 transform: scale(1);
@@ -261,7 +258,6 @@
             50% { transform: translateY(-10px); }
         }
 
-        /* Klasa ukrywająca preloader */
         .preloader-hidden {
             opacity: 0;
             visibility: hidden;
@@ -270,7 +266,6 @@
 </head>
 <body>
 
-    <!-- Ekran ładowania -->
     <div id="preloader">
         <div class="loader-box">
             <img src="ilustracja_skihub.png" alt="Logo Preloader" class="loader-logo">
@@ -281,19 +276,15 @@
         </div>
     </div>
 
-    <!-- Główna zawartość strony -->
     <div class="main-wrapper" id="mainWrapper">
         <div class="background-blur"></div>
-        <!-- Wakacyjny efekt cząsteczek -->
         <canvas id="summerCanvas"></canvas>
         
         <div class="content-container">
             <img src="ilustracja_skihub.png" alt="Logo Serwera" class="logo">
             <div class="status-text">Strona w budowie</div>
-            <!-- Zaktualizowany napis (Opcja 4) -->
             <div class="sub-text">Słońce, znajomi i nowa przygoda. Tworzymy dla Was idealne miejsce na letnie wieczory. Zostało niewiele czasu!</div>
             
-            <!-- Licznik czasu -->
             <div class="countdown-container" id="countdown">
                 <div class="countdown-item">
                     <span class="countdown-number" id="hours">00</span>
@@ -311,7 +302,6 @@
                 </div>
             </div>
 
-            <!-- Przycisk Discord -->
             <a href="https://discord.gg/xyEN4g4Ave" target="_blank" class="discord-btn">
                 <svg viewBox="0 0 127.14 96.36">
                     <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.15c2.65-27.28-4.52-51.1-20.45-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5.18-12.72,11.45-12.72S53.9,46,53.88,53,48.71,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5.18-12.72,11.44-12.72S96.15,46,96.13,53,91,65.69,84.69,65.69Z"/>
@@ -322,7 +312,6 @@
     </div>
 
     <script>
-        // Pasek ładowania
         const progressBar = document.getElementById('progressBar');
         const loadingPercent = document.getElementById('loadingPercent');
         const preloader = document.getElementById('preloader');
@@ -347,7 +336,6 @@
             loadingPercent.textContent = currentProgress + '%';
         }, 40);
 
-        // Licznik do jutra do 20:00
         const targetDate = new Date();
         targetDate.setDate(targetDate.getDate() + 1);
         targetDate.setHours(20, 0, 0, 0);
@@ -373,7 +361,6 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Wakacyjny efekt cząsteczek w tle (Canvas)
         const canvas = document.getElementById('summerCanvas');
         const ctx = canvas.getContext('2d');
 
