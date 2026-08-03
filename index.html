@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SKIHUB.PL︲STRONA GŁÓWNA</title>
     
-    <!-- Metatagi OpenGraph (Wygląd linku na Discordzie) -->
+    <!-- Estetyczne metatagi OpenGraph z pełnym linkiem do logo (pamiętaj, aby zmienić https://skihub.pl na swój faktyczny adres domeny) -->
     <meta property="og:title" content="SKIHUB.PL 🫱 SEZON LETNI 🌴">
     <meta property="og:description" content="Słońce, znajomi i nowa przygoda! Dołącz do społeczności SKIHUB.PL, sprawdź licznik do startu i zgarnij ekipę na letnie granie!">
-    <meta property="og:image" content="ilustracja_skihub.png">
+    <meta property="og:image" content="https://skihub.pl/ilustracja_skihub.png">
     <meta property="og:url" content="https://skihub.pl">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#5353ec">
@@ -28,7 +28,7 @@
             height: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
-            background-color: #0b0b0e;
+            background-color: #08080a;
             color: #ffffff;
         }
 
@@ -39,7 +39,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #0b0b0e;
+            background-color: #08080a;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -52,11 +52,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 300px;
+            width: 280px;
         }
 
         .loader-logo {
-            max-width: 160px;
+            max-width: 150px;
             width: 100%;
             height: auto;
             margin-bottom: 25px;
@@ -65,12 +65,11 @@
 
         .progress-track {
             width: 100%;
-            height: 6px;
-            background-color: rgba(255, 255, 255, 0.1);
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.08);
             border-radius: 10px;
             overflow: hidden;
-            position: relative;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
         }
 
         .progress-bar {
@@ -79,24 +78,25 @@
             background: #5353ec;
             border-radius: 10px;
             transition: width 0.1s linear;
-            box-shadow: 0 0 15px rgba(83, 83, 236, 0.7);
+            box-shadow: 0 0 15px rgba(83, 83, 236, 0.8);
         }
 
         .loading-percent {
             margin-top: 12px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 1px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
             color: #5353ec;
-            text-shadow: 0 0 8px rgba(83, 83, 236, 0.4);
+            text-shadow: 0 0 10px rgba(83, 83, 236, 0.4);
         }
 
+        /* Główna zawartość strony */
         .main-wrapper {
             position: relative;
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 1s ease 0.2s;
+            transition: opacity 1.2s ease 0.1s;
         }
 
         .main-wrapper.loaded {
@@ -112,7 +112,7 @@
             background-image: url('ilustracja_skihub.png');
             background-size: cover;
             background-position: center;
-            filter: blur(25px) brightness(0.25);
+            filter: blur(30px) brightness(0.2);
             transform: scale(1.1);
             z-index: 1;
         }
@@ -140,43 +140,45 @@
             padding: 20px;
         }
 
+        /* Estetyczne logo z głębokim cieniem */
         .logo {
-            max-width: 250px;
+            max-width: 240px;
             width: 100%;
             height: auto;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             animation: float 4s ease-in-out infinite;
-            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+            filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.7));
         }
 
         .status-text {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            color: #ffffff;
+            color: #f3f3f6;
             margin-bottom: 8px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
         }
 
         .sub-text {
             font-size: 0.95rem;
             color: #94a3b8;
-            max-width: 440px;
-            line-height: 1.5;
-            margin-bottom: 25px;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+            max-width: 420px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
         }
 
+        /* Nowoczesny, szklany licznik (Glassmorphism) */
         .countdown-container {
             display: flex;
             gap: 15px;
-            background: rgba(15, 15, 20, 0.6);
-            border: 1px solid rgba(83, 83, 236, 0.3);
-            padding: 15px 25px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(83, 83, 236, 0.15);
+            background: rgba(12, 12, 18, 0.65);
+            border: 1px solid rgba(83, 83, 236, 0.25);
+            padding: 16px 28px;
+            border-radius: 14px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(83, 83, 236, 0.12);
             margin-bottom: 25px;
         }
 
@@ -191,15 +193,14 @@
             font-size: 1.8rem;
             font-weight: 800;
             color: #5353ec;
-            text-shadow: 0 0 12px rgba(83, 83, 236, 0.6);
+            text-shadow: 0 0 15px rgba(83, 83, 236, 0.6);
         }
 
         .countdown-label {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #5353ec;
-            opacity: 0.8;
+            letter-spacing: 1.5px;
+            color: #8b9bb4;
             margin-top: 2px;
         }
 
@@ -207,13 +208,13 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: #5353ec;
-            opacity: 0.6;
+            opacity: 0.5;
             display: flex;
             align-items: center;
-            padding-bottom: 12px;
-            text-shadow: 0 0 8px rgba(83, 83, 236, 0.4);
+            padding-bottom: 14px;
         }
 
+        /* Estetyczny przycisk Discord z delikatnym podświetleniem */
         .discord-btn {
             display: inline-flex;
             align-items: center;
@@ -221,19 +222,19 @@
             background-color: #5353ec;
             color: #ffffff;
             text-decoration: none;
-            padding: 12px 28px;
-            border-radius: 8px;
+            padding: 13px 30px;
+            border-radius: 10px;
             font-weight: 600;
             font-size: 0.95rem;
             letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(83, 83, 236, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(83, 83, 236, 0.45);
         }
 
         .discord-btn:hover {
             background-color: #6464f1;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(83, 83, 236, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(83, 83, 236, 0.65);
         }
 
         .discord-btn svg {
@@ -245,7 +246,7 @@
         @keyframes pulseGlow {
             0%, 100% {
                 transform: scale(1);
-                filter: drop-shadow(0 0 10px rgba(83, 83, 236, 0.3));
+                filter: drop-shadow(0 0 12px rgba(83, 83, 236, 0.3));
             }
             50% {
                 transform: scale(1.04);
@@ -266,6 +267,7 @@
 </head>
 <body>
 
+    <!-- Ekran ładowania -->
     <div id="preloader">
         <div class="loader-box">
             <img src="ilustracja_skihub.png" alt="Logo Preloader" class="loader-logo">
@@ -276,6 +278,7 @@
         </div>
     </div>
 
+    <!-- Główna zawartość strony -->
     <div class="main-wrapper" id="mainWrapper">
         <div class="background-blur"></div>
         <canvas id="summerCanvas"></canvas>
@@ -285,6 +288,7 @@
             <div class="status-text">Strona w budowie</div>
             <div class="sub-text">Słońce, znajomi i nowa przygoda. Tworzymy dla Was idealne miejsce na letnie wieczory. Zostało niewiele czasu!</div>
             
+            <!-- Licznik czasu -->
             <div class="countdown-container" id="countdown">
                 <div class="countdown-item">
                     <span class="countdown-number" id="hours">00</span>
@@ -302,6 +306,7 @@
                 </div>
             </div>
 
+            <!-- Przycisk Discord -->
             <a href="https://discord.gg/xyEN4g4Ave" target="_blank" class="discord-btn">
                 <svg viewBox="0 0 127.14 96.36">
                     <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.15c2.65-27.28-4.52-51.1-20.45-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5.18-12.72,11.45-12.72S53.9,46,53.88,53,48.71,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5.18-12.72,11.44-12.72S96.15,46,96.13,53,91,65.69,84.69,65.69Z"/>
@@ -312,6 +317,7 @@
     </div>
 
     <script>
+        // Pasek ładowania
         const progressBar = document.getElementById('progressBar');
         const loadingPercent = document.getElementById('loadingPercent');
         const preloader = document.getElementById('preloader');
@@ -334,8 +340,9 @@
 
             progressBar.style.width = currentProgress + '%';
             loadingPercent.textContent = currentProgress + '%';
-        }, 40);
+        }, 35);
 
+        // Licznik czasu
         const targetDate = new Date();
         targetDate.setDate(targetDate.getDate() + 1);
         targetDate.setHours(20, 0, 0, 0);
@@ -361,6 +368,7 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
+        // Cząsteczki w tle
         const canvas = document.getElementById('summerCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -372,16 +380,16 @@
         resizeCanvas();
 
         const particlesArray = [];
-        const numberOfParticles = 35;
+        const numberOfParticles = 40;
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = (Math.random() - 0.5) * 0.6;
-                this.speedY = (Math.random() - 0.5) * 0.6 - 0.2;
-                this.opacity = Math.random() * 0.5 + 0.2;
+                this.size = Math.random() * 2.5 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5 - 0.15;
+                this.opacity = Math.random() * 0.4 + 0.15;
             }
             update() {
                 this.x += this.speedX;
